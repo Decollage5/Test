@@ -74,9 +74,41 @@ function renderPositions() {
     </tr>`).join('');
 }
 
+function renderDax() {
+  const q = $('dax-filter').value.trim().toLowerCase();
+  const owned = new Set(state.positions.map((p) => p.name.toLowerCase()));
+  $('dax').innerHTML = DAX
+    .filter((d) => !q || d.name.toLowerCase().includes(q) || d.sector.toLowerCase().includes(q))
+    .map((d) => `
+    <tr>
+      <td>${escapeHtml(d.name)}${owned.has(d.name.toLowerCase()) ? '<span class="badge">im Depot</span>' : ''}</td>
+      <td>${escapeHtml(d.sector)}</td>
+      <td class="num">${d.dividend ? euro.format(d.dividend) : 'keine'}</td>
+      <td>${d.month === null ? '–' : MONTHS_LONG[d.month]}</td>
+      <td class="num"><button data-dax="${escapeHtml(d.name)}">Übernehmen</button></td>
+    </tr>`).join('');
+}
+
+function adoptDax(name) {
+  const d = DAX.find((x) => x.name === name);
+  if (!d) return;
+  const existing = state.positions.find((p) => p.name.toLowerCase() === d.name.toLowerCase());
+  if (existing) {
+    editPosition(existing.id);
+    return;
+  }
+  resetForm();
+  $('name').value = d.name;
+  $('dividend').value = d.dividend;
+  monthBoxes().forEach((b, m) => { b.checked = m === d.month; });
+  $('position-form').scrollIntoView({ behavior: 'smooth' });
+  $('shares').focus({ preventScroll: true });
+}
+
 function render() {
   renderCalendar();
   renderPositions();
+  renderDax();
 }
 
 function escapeHtml(s) {
@@ -162,6 +194,12 @@ $('positions').addEventListener('click', (e) => {
     }
   }
 });
+
+$('dax').addEventListener('click', (e) => {
+  if (e.target.dataset.dax) adoptDax(e.target.dataset.dax);
+});
+
+$('dax-filter').addEventListener('input', renderDax);
 
 // --- Einstellungen & Navigation ---
 

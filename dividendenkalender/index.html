@@ -30,6 +30,23 @@
     <section class="calendar" id="calendar"></section>
 
     <section class="panel">
+      <div class="panel-head">
+        <h2>DAX 40 <span class="muted">(Stand: Indexüberprüfung Sept. 2026)</span></h2>
+        <input id="dax-filter" type="search" placeholder="Suchen …">
+      </div>
+      <p class="muted small">Dividende und Zahlmonat sind Richtwerte der letzten bekannten Ausschüttung – ohne Gewähr, bitte vor Übernahme prüfen.
+        „Übernehmen“ füllt das Formular unten, du musst nur noch die Stückzahl eintragen.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Unternehmen</th><th>Branche</th><th class="num">Dividende/Aktie</th><th>Zahlmonat</th><th></th></tr>
+          </thead>
+          <tbody id="dax"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
       <h2 id="form-title">Position hinzufügen</h2>
       <form id="position-form">
         <input type="hidden" id="edit-id">
@@ -79,6 +96,7 @@
     </section>
   </main>
 
+  <script src="dax.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

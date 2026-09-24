@@ -71,6 +71,12 @@ table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 th, td { text-align: left; padding: 6px; border-bottom: 1px solid #334155; }
 td.num, th.num { text-align: right; }
 .muted { color: #64748b; }
+.small { font-size: 0.85rem; margin: 0 0 8px; }
+.panel-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }
+.panel-head h2 { margin: 0; }
+.table-wrap { max-height: 420px; overflow-y: auto; }
+.table-wrap thead th { position: sticky; top: 0; background: #1e293b; }
+.badge { font-size: 0.75rem; color: #4ade80; border: 1px solid #4ade80; border-radius: 4px; padding: 1px 5px; margin-left: 6px; }
 
 @media (max-width: 640px) {
   table thead { display: none; }
